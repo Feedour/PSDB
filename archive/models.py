@@ -49,7 +49,6 @@ class Planet(models.Model):
     published_date = models.DateTimeField(
         blank=True, null=True)
     missions = models.ManyToManyField(Mission)
-    
 
     def publish(self):
         self.published_date = timezone.now()
