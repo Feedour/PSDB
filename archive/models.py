@@ -13,6 +13,7 @@ class BG(models.Model):
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
+    last_st_nab = models.ForeignKey(Person, null=True, on_delete=models.SET_NULL)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -47,6 +48,7 @@ class Planet(models.Model):
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
+    missions = models.ManyToManyField(Mission)
 
     def publish(self):
         self.published_date = timezone.now()
