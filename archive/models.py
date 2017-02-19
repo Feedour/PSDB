@@ -56,7 +56,6 @@ class Planet(models.Model):
         return self.name
 
 
-
 class Mission(models.Model):
     name = models.CharField(max_length=50)
     target = models.TextField()
