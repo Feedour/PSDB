@@ -48,7 +48,7 @@ class Mission(models.Model):
     published_date = models.DateTimeField(
         blank=True, null=True)
     planet = models.ForeignKey(Planet, null=True, on_delete=models.SET_NULL)
-    bg = models.ForeignKey(Planet, null=True, on_delete=models.SET_NULL)
+    bg = models.ForeignKey(BG, null=True, on_delete=models.SET_NULL)
 
     def publish(self):
         self.published_date = timezone.now()
