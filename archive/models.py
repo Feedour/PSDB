@@ -23,7 +23,7 @@ class Planet(models.Model):
 class Person(models.Model):
     name = models.CharField(max_length=100)
     info = models.TextField()
-    image = models.ImageField(upload_to='images/Sotrudnik/', blank=True)
+    image = models.ImageField(upload_to='images/Person/', blank=True)
     created_date = models.DateTimeField(
         default=timezone.now)
     published_date = models.DateTimeField(
