@@ -20,6 +20,25 @@ class Planet(models.Model):
         return self.name
 
 
+class BG(models.Model):
+    name = models.CharField(max_length=200)
+    info = models.TextField()
+    st_nab = models.CharField(max_length=100, null=True)
+    image = models.ImageField(upload_to='images/BG/', blank=True)
+    created_date = models.DateTimeField(
+        default=timezone.now)
+    published_date = models.DateTimeField(
+        blank=True, null=True)
+    last_st_nab = models.ForeignKey(Person, null=True, on_delete=models.SET_NULL)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.name
+
+
 class Person(models.Model):
     name = models.CharField(max_length=100)
     info = models.TextField()
@@ -57,21 +76,3 @@ class Mission(models.Model):
     def __str__(self):
         return self.name
 
-
-class BG(models.Model):
-    name = models.CharField(max_length=200)
-    info = models.TextField()
-    st_nab = models.CharField(max_length=100, null=True)
-    image = models.ImageField(upload_to='images/BG/', blank=True)
-    created_date = models.DateTimeField(
-        default=timezone.now)
-    published_date = models.DateTimeField(
-        blank=True, null=True)
-    last_st_nab = models.ForeignKey(Person, null=True, on_delete=models.SET_NULL)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
-    def __str__(self):
-        return self.name
