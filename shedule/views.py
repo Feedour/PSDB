@@ -18,11 +18,11 @@ class Menu:
 def index(request, pk):
     watcher = Watcher.objects.get(pk=1)
 
-    menu_list = {Menu(name='Персонал',link='/archive/person/'),
+    menu_list = [Menu(name='Персонал',link='/archive/person/'),
                  Menu(name='Боевые группы', link='/archive/bg/'),
                  Menu(name='Высадки', link='/archive/missions/'),
                  Menu(name='Планеты', link='/archive/planets/'),
-                 Menu(name='Расписание', link='/shedule/')}
+                 Menu(name='Расписание', link='/shedule/')]
 
     lesson_list = Lesson.objects.all()
     context = {'lesson_list':lesson_list,
