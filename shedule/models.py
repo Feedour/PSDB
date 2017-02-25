@@ -27,7 +27,7 @@ class Lesson(models.Model):
     def get_absolute_url(self):
         return 'shedule/%d' % self.pk
     def get_short_count(self):
-        return
+        return str(self.students.count()) + '/' + str(self.max_students)
     class Meta:
         db_table = 'lessons'
         ordering = ['-day']
