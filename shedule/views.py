@@ -16,17 +16,9 @@ class Menu:
     link = '/archive/'
 
 def index(request, pk):
-    watcher = Watcher.objects.get(pk=1)
-
-    menu_list = [Menu(name='Персонал',link='/archive/person/'),
-                 Menu(name='Боевые группы', link='/archive/bg/'),
-                 Menu(name='Высадки', link='/archive/missions/'),
-                 Menu(name='Планеты', link='/archive/planets/'),
-                 Menu(name='Расписание', link='/shedule/')]
-
+    watcher = request.user.watcher;
     lesson_list = Lesson.objects.all()
     context = {'lesson_list':lesson_list,
-               'menu_list':menu_list,
                'watcher':watcher,
                'current_lesson':lesson_list.get(pk=pk)}
     return render(request, 'shedule/lesson_detail.html', context)

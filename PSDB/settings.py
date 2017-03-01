@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'menu',
     'archive.apps.ArchiveConfig',
     'shedule.apps.SheduleConfig',
     'django.contrib.admin',
@@ -102,6 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_PROFILE_MODULE = 'shedule.watcher'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
