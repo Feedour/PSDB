@@ -18,7 +18,7 @@
              {% for menu in menuitems %}
       	         <li><a href="{{ menu.url }}">{{ menu.title }}</a></li>
              {% endfor %}
-            <li>Приветствую тебя, <a href="{% url 'shedule:watcher' watcher.pk %}">{{ watcher.name }}</a></li>
+            <li>Приветствую тебя, <a href="{% url 'shedule:watcher' user.pk %}">{{ user.name }}</a></li>
          </ul>
       </div>
       <div class="container main">
@@ -31,14 +31,28 @@
           </div>
           <div class="info">
               <h1>{{ current_lesson.name }}</h1>
-              <p>{{ current_lesson.place }}</p>
-              <p>{{ current_lesson.teacher }}</p>
-              <p>{{ current_lesson.get_short_count }}</p>
+              <p>Место: {{ current_lesson.place }}</p>
+              <p>Ведет: {{ current_lesson.teacher }}</p>
+              <p>Количество занятых мест: {{ current_lesson.get_short_count }}</p>
+              <p>Список записавшихся:</p>
               <ul>
                   {% for student in current_lesson.students.all %}
                       <li><a href="{% url 'shedule:watcher' student.pk %}">{{ student.name }}</a></li>
                   {% endfor %}
               </ul>
+              <form action="{% url 'shedule:enroll' current_lesson.pk %}" method="post">
+                  {% csrf_token %}
+                  <input type="submit" value="Enroll" />
+              </form>
+              {% if messages %}
+                  <ul class="messages">
+                      {% for message in messages %}
+                          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                              {{ message }}
+                          </li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
           </div>
       </div>
       <div class="container footer">Архив базы <b>Ц.У.Н.А.М.И.</b> ver 2.0</div>

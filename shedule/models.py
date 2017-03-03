@@ -13,7 +13,7 @@ class Watcher(models.Model):
 
     name = models.CharField(max_length=30)
     bg = models.CharField(max_length=30, blank=True)
-    photo = models.ImageField(upload_to='images/Watcher/',blank=True)
+    photo = models.ImageField(upload_to='static/images/Watcher/',blank=True)
     info = models.TextField(blank=True)
     def __unicode__(self):
         return self.name
@@ -35,6 +35,7 @@ class Lesson(models.Model):
     day = models.DateField(default=timezone.now() + timedelta(days=1))
     teacher = models.ForeignKey(Watcher, related_name='teacher_lessons')
     students = models.ManyToManyField(Watcher,related_name='student_lessons', blank=True)
+    is_specialization = models.BooleanField(default=False)
     def __unicode__(self):
         return self.name
     def get_absolute_url(self):

@@ -13,22 +13,19 @@
       </div>
       <div class="container menu">
          <ul>
-            {% for menu in menu_list %}
-      	        <li><a href="{{ menu.link }}">{{ menu.name }}</a></li>
-            {% endfor %}
-            <li>Приветствую тебя, <a href="{% url 'shedule:watcher' watcher.pk %}">{{ watcher.name }}</a></li>
+             {% load menubuilder %}
+             {% menu main_menu %}
+             {% for menu in menuitems %}
+      	         <li><a href="{{ menu.url }}">{{ menu.title }}</a></li>
+             {% endfor %}
+            <li>Приветствую тебя, <a href="{% url 'shedule:watcher' user.pk %}">{{ user.name }}</a></li>
          </ul>
       </div>
       <div class="container main">
-          <div class="nav list">
-              <ul>
-                  {% for lesson in lesson_list %}
-                      <li><a href="{% url 'shedule:shedule' lesson.pk %}">{{ lesson.name }}</a></li>
-                  {% endfor %}
-              </ul>
-          </div>
-          <div class="info">
-          </div>
+          <h1>{{ watcher.name }}</h1>
+          <img src="/{{ watcher.photo.url }}" alt="Здесь могла быть фотография"/>
+          <p>Боевая группа: {{ watcher.bg }}</p>
+          <p>Информация: {{ watcher.info }}</p>
       </div>
       <div class="container footer">Архив базы <b>Ц.У.Н.А.М.И.</b> ver 2.0</div>
    </body>
