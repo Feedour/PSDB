@@ -20,7 +20,7 @@ from django.views.static import serve
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', include('archive.urls')),
     url(r'^shedule/', include('shedule.urls')),
+    url(r'^archive/', include('archive.urls')),
 ]
 #path.join(path.dirname(path.dirname(path.abspath(__file__))), 'static/')

@@ -12,6 +12,7 @@ def index(request):
     lesson = Lesson.objects.filter(day__day=timezone.now().day).first()
     return HttpResponseRedirect(lesson.pk)
 
+
 def shedule(request, pk):
     watcher = request.user.watcher;
     delta = timezone.now().hour // 14
@@ -20,6 +21,7 @@ def shedule(request, pk):
                'user':watcher,
                'current_lesson':Lesson.objects.get(pk=pk)}
     return render(request, 'shedule/lesson_detail.html', context)
+
 
 def enroll(request, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
