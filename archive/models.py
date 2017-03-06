@@ -5,7 +5,7 @@ from PIL import Image
 
 class Planet(models.Model):
     name = models.CharField(max_length=100)
-    history = models.TextField()
+    info = models.TextField()
     image = models.ImageField(upload_to='images/Planet/', blank=True)
     created_date = models.DateTimeField(
         default=timezone.now)
@@ -60,7 +60,7 @@ class BG(models.Model):
 class Mission(models.Model):
     name = models.CharField(max_length=50)
     target = models.TextField()
-    history = models.TextField()
+    info = models.TextField()
     result = models.BooleanField()
     created_date = models.DateTimeField(
         default=timezone.now)
