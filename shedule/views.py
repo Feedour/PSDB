@@ -9,21 +9,21 @@ from django.contrib import messages
 
 
 def index(request):
-    lesson = Lesson.objects.filter(day__day=timezone.now().day).first()
-    return HttpResponseRedirect(lesson.pk)
+    return HttpResponseRedirect(reverse('shedule:shedule', args=(1,)))
 
 
-def shedule(request, pk):
-    watcher = request.user.watcher;
-    delta = timezone.now().hour // 14
-    lesson_list = Lesson.objects.filter(day__day=(timezone.now().day + delta))
+def shedule(request, day):
+    watcher = request.user.watcher
+    day_list = Lesson.objects.fake_day_list()
+    lesson_list = Lesson.objects.day_lessons(day)
     context = {'lesson_list':lesson_list,
-               'user':watcher,
-               'current_lesson':Lesson.objects.get(pk=pk)}
-    return render(request, 'shedule/lesson_detail.html', context)
+               'day_list':day_list,
+               'user':watcher,}
+    return render(request, 'shedule/shedule.html', context)
 
-
-def enroll(request, pk):
+def lesson (request, day, pk):
+    return HttpResponseRedirect(reverse('shedule:shedule', args=(1,)))
+def enroll(request, day, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
     watcher = request.user.watcher
     students = lesson.students.all();

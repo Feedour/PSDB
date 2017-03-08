@@ -5,8 +5,9 @@
       <meta name="viewport" content="width=devise-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-      <link href="style.css" rel="stylesheet">
-      <title>Главная страница</title>
+      {% load static %}
+       <link href="{% static "style.css" %}" rel="stylesheet">
+      <title>Расписание</title>
    </head>
    <body>
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -27,18 +28,20 @@
                   </div>
                </form>
                <ul class="nav navbar-nav">
-                  <li><a href="people.html">Персонал</a></li>
-                  <li><a href="battlegroup.html">Боевые группы</a></li>
-                  <li><a href="watch.html">Вахты</a></li>
-                  <li><a href="mission.html">Высадки</a></li>
-                  <li><a href="planet.html">Планеты</a></li>
-                  <li><a href="shedule.html">Расписание</a></li>
-                  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Приветствую тебя, Наблюдатель <span class="caret"></span></a>
+                   {% load menubuilder %}
+                     {% menu main_menu %}
+                     {% for menu in menuitems %}
+                         <li><a href="{{ menu.url }}">{{ menu.title }}</a></li>
+                     {% endfor %}
+                  <li class="dropdown"><a href="{% url 'shedule:watcher' user.pk %}" class="dropdown-toggle" data-toggle="dropdown">Приветствую тебя, {{ user.name }} <span class="caret"></span></a>
                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="room.html">Личный кабинет</a></li>
-                        <li><a href="#">Редактировать</a></li>
-                        <li class="divider"></li>
-                        <li><a href="signin.html">Выход</a></li>
+                         {% menu dropdown_menu %}
+                        {% for menu in menuitems %}
+                            <li><a href="{{ menu.url }}">{{ menu.title }}</a></li>
+                            {% if forloop == 2 %}
+                                <li class="divider"></li>
+                            {% endif %}
+                     {% endfor %}
                      </ul>
                   </li>
                </ul>
@@ -46,8 +49,32 @@
          </div>
       </nav>
 
-      <div class="container-fluid">
-         <img class="img-responsive image" src="big_eye.png" alt="big_logo">
+      <div class="panel panel-info">
+         <div class="panel-heading">
+            <h1 class="panel-title">Боевые группы</h1>
+         </div>
+         <div class="panel-body">
+            <div class="row">
+               <div class="col-xs-6 col-lg-3 sidebar">
+                  <ul class="nav nav-sidebar">
+                     <li  class="active"><a href="{% url archive:bg current 1%}">Действующие<span class="sr-only">(current)</span></a></li>
+                     <li><a href="{% url 'archive:bg' frozen 1%}">Замороженные</a></li>
+                  </ul>
+                  <hr>
+                  <
+                  {% if bg_list %}
+                      <ul class="nav nav-sidebar">
+                         {% for bg in bg_list %}
+                              <li><a href="{% url 'archive:bg' bg.pk %}">{{ bg.name }}</a></li>
+                         {% endfor %}
+                      </ul>
+                  {% endif %}
+               </div>
+               <div class="col-xs-6 col-lg-9 main">
+                  <p>На этой странице собрана информация о действующих и расформированных боевых группах, когда-либо работавших на базе Ц.У.Н.А.М.И.</p>
+               </div>
+            </div>
+         </div>
       </div>
 
       <div class="navbar-inverse navbar-fixed-bottom">

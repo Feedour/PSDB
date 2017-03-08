@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Главная страница</title>
+      <meta charset="utf-8">
+      <link href="style.css" rel="stylesheet">
+   </head>
+   <body>
+      <div class="container header clearfix">
+         <div class="head head-1"><a href="main.html"><img src="" alt="small_logo"></a></div>
+         <div class="head head-2"><form action="" method="get"><input type="text" name="search"><input type="submit" name="confirm" value="поиск"></form></div>
+      </div>
+      <div class="container menu">
+         <ul>
+            {% for menu in menu_list %}
+      	        <li><a href="{{ menu.link }}">{{ menu.name }}</a></li>
+            {% endfor %}
+            <li>Приветствую тебя, <a href="{% url 'watcher' watcher.pk %}">{{ watcher.name }}</a></li>
+         </ul>
+      </div>
+      <div class="container main"><
+          <div class="nav list">
+              <ul>
+                  {% for lesson in lesson_list %}
+                      <li><a href="{{  }}">{{ lesson.name }}</a></li>
+                  {% endfor %}
+              </ul>
+          </div>
+          <div class="info">
+          </div>
+      </div>
+      <div class="container footer">Архив базы <b>Ц.У.Н.А.М.И.</b> ver 2.0</div>
+   </body>
+</html>

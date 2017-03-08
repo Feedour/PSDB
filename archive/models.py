@@ -43,6 +43,8 @@ class BG(models.Model):
     info = models.TextField()
     st_nab = models.CharField(max_length=100, null=True)
     image = models.ImageField(upload_to='static/images/BG/', blank=True)
+    is_active = models.BooleanField(default=True)
+
     created_date = models.DateTimeField(
         default=timezone.now)
     published_date = models.DateTimeField(
