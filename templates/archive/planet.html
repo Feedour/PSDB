@@ -48,22 +48,21 @@
          </div>
       </nav>
 
-      <div class="panel panel-info">
+       <div class="panel panel-info">
          <div class="panel-heading">
-            <h1 class="panel-title">Высадки</h1>
+            <h1 class="panel-title">Планеты</h1>
          </div>
          <div class="panel-body">
             <div class="row">
-                  {% if planet_list %}
-                      <ul class="nav nav-sidebar">
-                         {% for planet in planet_list %}
-                              <li><a href="{% url 'archive:planet' planet.pk %}">{{ planet.name }}</a></li>
-                         {% endfor %}
-                      </ul>
-                  {% endif %}
+               <div class="col-xs-6 col-lg-3 sidebar">
+                   <ul class="nav nav-sidebar">
+                     {% for planet in Planet_list %}
+                          <li><a href="{% url 'archive:planet' planet.pk %}">{{ planet }} </a></li>
+                     {% endfor %}
+                  </ul>
                </div>
                <div class="col-xs-6 col-lg-9 main">
-                  <p>На этой странице собрана информация о действующих и расформированных боевых группах, когда-либо работавших на базе Ц.У.Н.А.М.И.</p>
+                  <p>{{ current_planet.info }} </p>
                </div>
             </div>
          </div>

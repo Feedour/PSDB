@@ -23,7 +23,7 @@ def bg(request, pk):
     bg_list = BG.objects.all();
     context = {'BG_list': bg_list,
                'current_bg': BG.objects.get(pk=pk)}
-    return render(request, 'archive/battlegroup.html', context)
+    return render(request, 'archive/bg.html', context)
 
 
 def planet(request,pk):

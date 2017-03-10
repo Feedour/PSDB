@@ -51,27 +51,20 @@
 
       <div class="panel panel-info">
          <div class="panel-heading">
-            <h1 class="panel-title">Высадки</h1>
+            <h1 class="panel-title">Сотрудники</h1>
          </div>
          <div class="panel-body">
             <div class="row">
                <div class="col-xs-6 col-lg-3 sidebar">
-                  <ul class="nav nav-sidebar">
-                     <li  class="active"><a href="{% url 'archive:person'  child %}">Наблюдатели<span class="sr-only">(current)</span></a></li>
-                     <li><a href="{% url 'archive:person'  watcher %}">Старшие наблюдатели</a></li>
-                     <li><a href="{% url 'archive:person'  10K %}">Сотрудники базы</a></li>
+                   <ul class="nav nav-sidebar">
+                     {% for person in Person_list %}
+                          <li><a href="{% url 'archive:person' person.pk %}">{{ person }} </a></li>
+                     {% endfor %}
                   </ul>
-                  <hr>
-                  {% if person_list %}
-                      <ul class="nav nav-sidebar">
-                         {% for person in person_list %}
-                              <li><a href="{% url 'archive:person' person.pk %}">{{ person.name }}</a></li>
-                         {% endfor %}
-                      </ul>
-                  {% endif %}
+
                </div>
                <div class="col-xs-6 col-lg-9 main">
-                  <p>На этой странице собрана информация о действующих и расформированных боевых группах, когда-либо работавших на базе Ц.У.Н.А.М.И.</p>
+                  <p>{{ current_person.info }} </p>
                </div>
             </div>
          </div>
