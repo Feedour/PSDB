@@ -28,7 +28,7 @@ class Person(models.Model):
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
-    planet = models.ForeignKey(Planet, null=True, on_delete=models.SET_NULL)
+    planet = models.ForeignKey(Planet, null=True, on_delete=models.SET_NULL, blank=True)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -49,7 +49,7 @@ class BG(models.Model):
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
-    last_st_nab = models.ForeignKey(Person, null=True, on_delete=models.SET_NULL)
+    last_st_nab = models.ForeignKey(Person, null=True, on_delete=models.SET_NULL, blank=True)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -63,13 +63,13 @@ class Mission(models.Model):
     name = models.CharField(max_length=50)
     target = models.TextField()
     info = models.TextField()
-    result = models.BooleanField()
+    result = models.CharField(max_length=50)
     created_date = models.DateTimeField(
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
-    planet = models.ForeignKey(Planet, null=True, on_delete=models.SET_NULL)
-    bg = models.ForeignKey(BG, null=True, on_delete=models.SET_NULL)
+    planet = models.ForeignKey(Planet, null=True, on_delete=models.SET_NULL, blank=True)
+    bg = models.ForeignKey(BG, null=True, on_delete=models.SET_NULL, blank=True)
 
     def publish(self):
         self.published_date = timezone.now()

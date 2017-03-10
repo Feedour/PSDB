@@ -57,21 +57,23 @@
             <div class="row">
                <div class="col-xs-6 col-lg-3 sidebar">
                    <ul class="nav nav-sidebar">
-                     {% for watch in watch_list %}
-                          <li><a href="{% url 'archive:mission' watch %}">{{ watch }} вахта</a></li>
+                     {% for mission in Mission_list %}
+                          <li><a href="{% url 'archive:mission' mission.pk %}">{{ mission }} высадка</a></li>
                      {% endfor %}
                   </ul>
                   <hr>
-                  {% if bg_list %}
+                  {% if missiom_list %}
                       <ul class="nav nav-sidebar">
-                         {% for bg in bg_list %}
-                              <li><a href="{% url 'archive:mission' bg.pk %}">{{ bg.name }}</a></li>
+                         {% for mission in Mission_list %}
+                              <li><a href="{% url 'archive:mission' mission.pk %}">{{ mission.name }}</a></li>
                          {% endfor %}
                       </ul>
                   {% endif %}
                </div>
                <div class="col-xs-6 col-lg-9 main">
-                  <p>На этой странице собрана информация о действующих и расформированных боевых группах, когда-либо работавших на базе Ц.У.Н.А.М.И.</p>
+                  <p>Цель     : {{ current_mission.target}} </p>
+                  <p>{{ current_mission.info }} </p>
+                  <p>Результат : {{ current_mission.result}} </p>
                </div>
             </div>
          </div>
