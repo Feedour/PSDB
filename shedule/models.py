@@ -42,6 +42,8 @@ class Lesson(models.Model):
     max_students = models.IntegerField(default=12)
     place = models.CharField(max_length=50, choices=[ ])
     day = models.IntegerField(default=1)
+    start_time = models.TimeField()
+    short_info = models.TextField()
     teacher = models.ForeignKey(Watcher, related_name='teacher_lessons')
     students = models.ManyToManyField(Watcher,related_name='student_lessons', blank=True)
     is_specialization = models.BooleanField(default=False)

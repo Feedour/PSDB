@@ -13,16 +13,19 @@ def index(request):
 
 
 def shedule(request, day):
+    return HttpResponseRedirect(reverse('shedule:lesson', args=(1,0)))
+
+def lesson (request, day, pk):
     watcher = request.user.watcher
     day_list = Lesson.objects.fake_day_list()
     lesson_list = Lesson.objects.day_lessons(day)
-    context = {'lesson_list':lesson_list,
-               'day_list':day_list,
-               'user':watcher,}
+    current_lesson = lesson_list.filter(pk=pk).first()
+    context = {'lesson_list': lesson_list,
+               'day_list': day_list,
+               'user': watcher,
+               'current_lesson': current_lesson,}
     return render(request, 'shedule/shedule.html', context)
 
-def lesson (request, day, pk):
-    return HttpResponseRedirect(reverse('shedule:shedule', args=(1,)))
 def enroll(request, day, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
     watcher = request.user.watcher
