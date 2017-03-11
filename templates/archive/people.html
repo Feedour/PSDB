@@ -65,6 +65,9 @@
                </div>
                <div class="col-xs-6 col-lg-9 main">
                   <p>{{ current_person.info }} </p>
+                  {%  if  current_person.planet %}
+                  <a href="{% url 'archive:planet' current_person.planet_id %}">{{ current_person.planet }} </a>
+                  {%  endif %}
                </div>
             </div>
          </div>
