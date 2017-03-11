@@ -74,6 +74,14 @@
                   <p>Цель     : {{ current_mission.target}} </p>
                   <p>{{ current_mission.info }} </p>
                   <p>Результат : {{ current_mission.result}} </p>
+                  {%  if  current_mission.planet_id %}
+                      <a href="{% url 'archive:planet' current_mission.planet_id %}">{{ current_mission.planet }} </a>
+                  {%  endif %}
+                  <p></p>
+                  {%  if  current_mission.bg_id %}
+                      <a href="{% url 'archive:bg' current_mission.bg_id %}">{{ current_mission.bg }} </a>
+                  {%  endif %}
+
                </div>
             </div>
          </div>
