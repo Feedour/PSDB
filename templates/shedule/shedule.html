@@ -79,15 +79,18 @@
                   <div class="row">
                      <div class="col-xs-8 col-lg-10">
                         <ul>
-                           <li>{{ current_lesson.teacher.name }}</li>
-                           <li>{{ current_lesson.place }}</li>
-                           <li>{{ current_lesson.start_time }}</li>
+                           <li>Ведет: {{ current_lesson.teacher.name }}</li>
+                           <li>Место: {{ current_lesson.place }}</li>
+                           <li>Время начала:{{ current_lesson.start_time }}</li>
                            <li>Занято мест: {{ current_lesson.get_short_count }}</li>
                         </ul>
                         <p>{{ current_lesson.short_info }}</p>
                      </div>
                      <div class="col-xs-4 col-lg-2">
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Записаться</button>
+                         <form action="{% url 'shedule:enroll' current_lesson.day current_lesson.pk %}" method="post">
+                         {% csrf_token %}
+                           <button type="submit" value="enroll" class="btn btn-primary" ><span class="glyphicon glyphicon-plus"></span> Записаться</button>
+                         </form>
                      </div>
                      <div class="col-xs-12 col-lg-12">
                      {% if current_lesson.students.all %}
@@ -112,6 +115,15 @@
                            </table>
                         </div>
                      {% endif %}
+                     {% if messages %}
+                          <ul class="messages">
+                              {% for message in messages %}
+                                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                      {{ message }}
+                                  </li>
+                              {% endfor %}
+                          </ul>
+                      {% endif %}
                         <p class="pull-left visible-xs">
                            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Назад</button>
                         </p>
@@ -119,7 +131,13 @@
                   </div>
                </div>
             {% else %}
-                <p>На этой странице можно просмотреть информацию о мастер-классах и записаться на них.</p>
+                {% if lesson_list %}
+                      <ul class="nav nav-sidebar">
+                         {% for lesson in lesson_list %}
+                              <li><a href="{% url 'shedule:lesson' lesson.day lesson.pk %}">{{ lesson.name }}</a></li>
+                         {% endfor %}
+                      </ul>
+                  {% endif %}
             {% endif %}
             </div>
          </div>
