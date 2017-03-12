@@ -15,8 +15,10 @@ class Watcher(models.Model):
     bg = models.CharField(max_length=30, blank=True)
     photo = models.ImageField(upload_to='static/images/Watcher/',blank=True)
     info = models.TextField(blank=True)
+
     def __unicode__(self):
         return self.name
+
     class Meta:
         db_table = 'watchers'
 
@@ -24,6 +26,7 @@ class Watcher(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Watcher.objects.create(user=instance, name=instance.username)
+
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.watcher.save()
