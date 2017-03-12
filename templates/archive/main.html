@@ -6,7 +6,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
       {% load static %}
-       <link href="{% static "style.css" %}" rel="stylesheet">
+           <link href="{% static "style.css" %}" rel="stylesheet">
       <title>Расписание</title>
    </head>
    <body>
@@ -49,29 +49,25 @@
          </div>
       </nav>
 
-      <div class="panel panel-info">
+       <div class="panel panel-info">
          <div class="panel-heading">
-            <h1 class="panel-title">Расписание мастер-классов</h1>
+            <h1 class="panel-title">Добро пожаловать</h1>
          </div>
          <div class="panel-body">
             <div class="row">
                <div class="col-xs-6 col-lg-3 sidebar">
-                  <ul class="nav nav-sidebar">
-                     {% for day in day_list %}
-                          <li><a href="{% url 'shedule:shedule' day %}">День {{ day }}</a></li>
+                   <ul class="nav nav-sidebar">
+                     {% for bg in BG_list %}
+                          <li><a href="{% url 'archive:bg' bg.pk %}">{{ bg }} </a></li>
                      {% endfor %}
                   </ul>
-                  <hr>
-                  {% if lesson_list %}
-                      <ul class="nav nav-sidebar">
-                         {% for lesson in lesson_list %}
-                              <li><a href="{% url 'shedule:lesson' lesson.day lesson.pk %}">{{ lesson.name }}</a></li>
-                         {% endfor %}
-                      </ul>
-                  {% endif %}
+
                </div>
                <div class="col-xs-6 col-lg-9 main">
-                   На этой странице можно просмотреть информацию о мастер-классах и записаться на них.
+                  <p>{{ current_bg.info }} </p>
+                   {%  if  current_bg.last_st_nab_id %}
+                      <a href="{% url 'archive:person' current_bg.last_st_nab_id %}">{{ current_bg.last_st_nab }} </a>
+                  {%  endif %}
                </div>
             </div>
          </div>

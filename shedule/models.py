@@ -15,10 +15,8 @@ class Watcher(models.Model):
     bg = models.CharField(max_length=30, blank=True)
     photo = models.ImageField(upload_to='static/images/Watcher/',blank=True)
     info = models.TextField(blank=True)
-
     def __unicode__(self):
         return self.name
-
     class Meta:
         db_table = 'watchers'
 
@@ -26,7 +24,6 @@ class Watcher(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Watcher.objects.create(user=instance, name=instance.username)
-
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.watcher.save()
@@ -45,8 +42,6 @@ class Lesson(models.Model):
     max_students = models.IntegerField(default=12)
     place = models.CharField(max_length=50, choices=[ ])
     day = models.IntegerField(default=1)
-    start_time = models.TimeField()
-    short_info = models.TextField()
     teacher = models.ForeignKey(Watcher, related_name='teacher_lessons')
     students = models.ManyToManyField(Watcher,related_name='student_lessons', blank=True)
     is_specialization = models.BooleanField(default=False)

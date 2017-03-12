@@ -9,7 +9,7 @@ from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, re
 
 
 def index(request):
-    return render(request, 'main.html', {})
+    return render(request, 'archive/main.html', {})
 
 
 def person(request,pk):
