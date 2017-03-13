@@ -16,41 +16,41 @@ def shedule(request, day):
     return HttpResponseRedirect(reverse('shedule:lesson', args=(1,0)))
 
 def lesson (request, day, pk):
-    if (request.user.is_authenticated):
-        watcher = request.user.watcher
-    else:
-        watcher = Watcher(name='Аноним', pk=0)
     day_list = Lesson.objects.fake_day_list()
     lesson_list = Lesson.objects.day_lessons(day)
     current_lesson = lesson_list.filter(pk=pk).first()
     context = {'lesson_list': lesson_list,
                'day_list': day_list,
-               'user': watcher,
+               'user': request.user,
                'current_lesson': current_lesson,}
     return render(request, 'shedule/shedule.html', context)
 
 def enroll(request, day,pk):
     lesson = get_object_or_404(Lesson, pk=pk)
-    watcher = request.user.watcher
-    students = lesson.students.all();
-    if (lesson.students.count() < lesson.max_students and not students.filter(pk=watcher.pk)):
-        if (not lesson.is_specialization):
-            previous_lesson = Lesson.objects.filter(name=lesson.name, day__day=(lesson.day.day - 1)).first()
-            if (previous_lesson):
-                previous_students = previous_lesson.students.all()
-                if (previous_students.filter(pk=watcher.pk)):
-                    messages.error(request, 'Вы не можете записаться на этот МК т.к. вчера уже были на нем')
+    if (request.user.is_authenticated):
+        watcher = request.user.watcher
+        students = lesson.students.all()
+        answer = (not students.filter(pk=watcher.pk))
+        if (not answer):
+            messages.error(request, 'Вы уже записаны на этот МК')
+        else:
+            answer = (students.count() < lesson.max_students)
+            if (answer):
+                previous_lesson = Lesson.objects.filter(name=lesson.name, day=lesson.previous_lesson_day)
+                if (previous_lesson):
+                    previous_student = previous_lesson.students.filter(pk=watcher.pk)
+                    if (previous_student):
+                        answer = False
+                        messages.error(request, 'Вы не можете записаться на этот МК т.к. уже были на нем')
             else:
+                messages.error(request, 'Все места уже заняты')
+            if (answer):
                 lesson.students.add(watcher)
                 lesson.save()
                 messages.success(request, "Готово! Вы записались на это занятие")
-        else:
-            lesson.students.add(watcher)
-            lesson.save()
-            messages.success(request, "Готово! Вы записались на это занятие")
     else:
-        messages.error(request, 'Вы не можете записаться на этот МК')
-    return HttpResponseRedirect(reverse('shedule:lesson', args=(lesson.day,pk,)))
+        messages.error(request, 'Войдите в систему, прежде чем записываться')
+    return HttpResponseRedirect(reverse('shedule:lesson', args=(lesson.day, pk,)))
 
 def exit(request):
     logout(request)

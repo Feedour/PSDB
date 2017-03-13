@@ -36,12 +36,12 @@ class LessonManager(models.Manager):
     def fake_day_list(self):
         top_day = self.order_by('-day').first().day
         return range(1,top_day+1,1)
-
 class Lesson(models.Model):
     name = models.CharField(max_length=50)
     max_students = models.IntegerField(default=12)
     place = models.CharField(max_length=50, choices=[ ])
     day = models.IntegerField(default=1)
+    previous_lesson_day = models.IntegerField(default=0, blank=True)
     start_time = models.TimeField()
     short_info = models.TextField()
     teacher = models.ForeignKey(Watcher, related_name='teacher_lessons')
