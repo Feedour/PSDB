@@ -1,87 +1,40 @@
- <!DOCTYPE html>
-<html>
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=devise-width, initial-scale=1">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-      {% load static %}
-       <link href="{% static "style.css" %}" rel="stylesheet">
-      <title>Расписание</title>
-   </head>
-   <body>
-      <nav class="navbar navbar-inverse navbar-fixed-top">
-         <div class="container">
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-menu-1" aria-expanded="false">
-                  <span class="glyphicon glyphicon-menu-hamburger"></span>
-               </button>
-               <a href="main.html" class="navbar-brand"><span class="glyphicon glyphicon-eye-open"></span></a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse-menu-1">
-               <form class="navbar navbar-form navbar-left">
-                  <div class="form-group">
-                     <input type="text" name="search" placeholder="Поиск">
-                  </div>
-                  <div class="form-group">
-                     <input type="submit" class="btn btn-primary" name="confirm" value="Ок">
-                  </div>
-               </form>
-               <ul class="nav navbar-nav">
-                   {% load menubuilder %}
-                     {% menu main_menu %}
-                     {% for menu in menuitems %}
-                         <li><a href="{{ menu.url }}">{{ menu.title }}</a></li>
-                     {% endfor %}
-                  <li class="dropdown"><a href="{% url 'shedule:watcher' user.pk %}" class="dropdown-toggle" data-toggle="dropdown">Приветствую тебя, {{ user.name }} <span class="caret"></span></a>
-                     <ul class="dropdown-menu" role="menu">
-                         {% menu dropdown_menu %}
-                        {% for menu in menuitems %}
-                            <li><a href="{{ menu.url }}">{{ menu.title }}</a></li>
-                            {% if forloop == 2 %}
-                                <li class="divider"></li>
-                            {% endif %}
-                     {% endfor %}
+{% extends 'base.html' %}
+
+{% block title %}Наблюдатели{% endblock %}
+
+{% block sidemenu %}
+    <ul class="nav nav-sidebar">
+        <li><a href="#">Старшие наблюдатели</a></li>
+        <li><a href="#">Сотрудники базы</a></li>
+    </ul>
+    <hr>
+    <ul class="nav nav-sidebar">
+        {% for person in Person_list %}
+            <li><a href="{% url 'archive:person' person.pk %}">{{ person }} </a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+        <div class="panel-heading">
+            <h1 class="panel-title">{{ current_person.name }} <a class="btn btn-primary pull-right" href="#" role="button"><span class="glyphicon glyphicon-pencil"></span> Редактировать</a></h1>
+        </div>
+        <div class="row">
+               <div class="col-xs-12 col-lg-4">
+                  <img src="/{{ current_person.image.url }}" class="img-thumbnail img-responsive" alt="Здесь могла быть ваша реклама"/>
+               </div>
+               <div class="col-xs-12 col-lg-8">
+                  <p>Краткая информация:
+                     <ul>
+                        <li>Дата рождения</li>
+                        {%  if  current_person.planet %}
+                            <li>Планета: <a href="{% url 'archive:planet' current_person.planet_id %}">{{ current_person.planet }} </a></li>
+                        {%  endif %}
+                        <li>Карьера в ИКРЦ</li>
+                        <li>и т.д.</li>
                      </ul>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-
-      <div class="panel panel-info">
-         <div class="panel-heading">
-            <h1 class="panel-title">Сотрудники</h1>
-         </div>
-         <div class="panel-body">
-            <div class="row">
-               <div class="col-xs-6 col-lg-3 sidebar">
-                   <ul class="nav nav-sidebar">
-                     {% for person in Person_list %}
-                          <li><a href="{% url 'archive:person' person.pk %}">{{ person }} </a></li>
-                     {% endfor %}
-                  </ul>
-
+                  </p>
+                  <p>{{ current_person.info }}</p>
                </div>
-               <div class="col-xs-6 col-lg-9 main">
-                  <p>{{ current_person.info }} </p>
-                  {%  if  current_person.planet %}
-                  <a href="{% url 'archive:planet' current_person.planet_id %}">{{ current_person.planet }} </a>
-                  {%  endif %}
-               </div>
-            </div>
-         </div>
-      </div>
-
-      <div class="navbar-inverse navbar-fixed-bottom">
-         <div class="navbar-inner">
-            <div class="container">
-               Архив базы <b>Ц.У.Н.А.М.И.</b> ver 2.0<br>
-               3583 год
-            </div>
-         </div>
-      </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-   </body>
-</html>
+        </div>
+{% endblock %}

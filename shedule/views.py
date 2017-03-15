@@ -70,13 +70,7 @@ def enter(request):
              messages.error(request, 'Неверный логин/пароль')
              return render(request, 'shedule/signin.html')
 
-
-
-class DetailWatcher(generic.DetailView):
-    model = Watcher
-    template_name = 'shedule/watcher_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(DetailWatcher, self).get_context_data(**kwargs)
-        context['user'] = self.request.user.watcher;
-        return context
+def account(request):
+    context = {'watcher':request.user.watcher,
+               'user' : request.user,}
+    return render(request, 'shedule/account.html', context)

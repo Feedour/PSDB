@@ -6,7 +6,7 @@ from PIL import Image
 class Planet(models.Model):
     name = models.CharField(max_length=100)
     info = models.TextField()
-    image = models.ImageField(upload_to='images/Planet/', blank=True)
+    image = models.ImageField(upload_to='static/images/Planet/', blank=True)
     created_date = models.DateTimeField(
         default=timezone.now)
     published_date = models.DateTimeField(

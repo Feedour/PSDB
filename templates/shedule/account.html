@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Аккаунт{% endblock %}
+
+{% block sidemenu %}
+    <ul class="nav nav-sidebar">
+        <li><a href="#">Мои мастерклассы</a></li>
+        <li><a href="#">Мои высадки</a></li>
+        <li><a href="#">Мои баллы</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="panel-heading">
+        <h1 class="panel-title">{{ watcher.name }} <a class="btn btn-primary pull-right" href="#" role="button"><span class="glyphicon glyphicon-pencil"></span> Редактировать</a></h1>
+    </div>
+
+        <div class="row">
+               <div class="col-xs-12 col-lg-4">
+                  <img src="/{{ watcher.photo.url }}" class="img-thumbnail img-responsive" alt="Здесь могла быть ваша реклама"/>
+               </div>
+               <div class="col-xs-12 col-lg-8">
+                  <p>Краткая информация:
+                     <ul>
+                        <li>Боевая группа: {{ watcher.bg }}</li>
+                     </ul>
+                  </p>
+                  <p>{{ watcher.info }}</p>
+               </div>
+        </div>
+{% endblock %}
