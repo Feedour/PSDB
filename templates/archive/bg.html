@@ -17,9 +17,10 @@
     <div class="row">
         <div class="col-xs-12 col-lg-4">
             {% if current_bg.image %}
-                <img src="/{{ current_bg.image.url }}" class="img-thumbnail img-responsive" alt="Здесь могла быть ваша реклама"/>
+                <img src="/{{ current_bg.image.url }}" class="img-thumbnail img-responsive" />
             {% else %}
-                <!-- место для картинки - заглушки-->
+                {% load static %}
+                <img src={% static "images/BG/unnamed.png" %} class="img-thumbnail img-responsive" />
             {% endif %}
         </div>
         <div class="col-xs-12 col-lg-8 main">

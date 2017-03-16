@@ -19,7 +19,8 @@
             {% if current_planet.image %}
                 <img src="/{{ current_planet.image.url }}" class="img-thumbnail img-responsive" alt="Здесь могла быть ваша реклама"/>
             {% else %}
-                <!-- место для картинки - заглушки-->
+                {% load static %}
+                <img src={% static "images/Planet/unnamed.png" %} class="img-thumbnail img-responsive" />
             {% endif %}
         </div>
         <div class="col-xs-12 col-lg-8 main">
