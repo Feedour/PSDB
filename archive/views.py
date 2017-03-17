@@ -28,6 +28,29 @@ def index_mission(request):
     return HttpResponseRedirect(reverse('archive:mission', args=(1,)))
 
 
+def bg_state(request):
+    return HttpResponseRedirect(reverse('archive:planet', args=(1,)))
+
+
+def person_state(request,pk,state):
+    person_list=Person.objects.all()
+    if state == '1':
+        person_list = person_list.filter(is_st_nab=True);
+    else:
+        person_list = person_list.filter(is_st_nab=False);
+    if person_list.filter(pk=pk):
+        current_person = Person.objects.get(pk=pk)
+    else:
+        current_person = person_list.first()
+    context = {'Person_list': person_list,
+               'current_person': current_person}
+    return render(request, 'archive/people.html', context)
+
+
+def mission_state(request):
+    return HttpResponseRedirect(reverse('archive:planet', args=(1,)))
+
+
 def person(request,pk):
     person_list=Person.objects.all();
     if person_list.filter(pk=pk):

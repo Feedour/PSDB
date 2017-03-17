@@ -4,8 +4,8 @@
 
 {% block sidemenu %}
     <ul class="nav nav-sidebar">
-        <li><a href="#">Старшие наблюдатели</a></li>
-        <li><a href="#">Сотрудники базы</a></li>
+        <li><a href="{% url 'archive:person_state' 0 1%}">Старшие наблюдатели</a></li>
+        <li><a href="{% url 'archive:person_state' 0 0%}">Сотрудники базы</a></li>
     </ul>
     <hr>
     <ul class="nav nav-sidebar">
@@ -31,12 +31,16 @@
                <div class="col-xs-12 col-lg-8">
                   <p>Краткая информация:
                      <ul>
-                        <li>Дата рождения</li>
+                        <li>Дата рождения: {{ current_person.birth_date }}</li>
                         {%  if  current_person.planet %}
                             <li>Планета: <a href="{% url 'archive:planet' current_person.planet_id %}">{{ current_person.planet }} </a></li>
                         {%  endif %}
-                        <li>Карьера в ИКРЦ</li>
-                        <li>и т.д.</li>
+                         <li>Отец:  {{ current_person.father}}</li>
+                         <li>Мать: {{ current_person.mother }}</li>
+                         <li>Образование: {{ current_person.education }}</li>
+                         <li>Работа до ИКРЦ: {{ current_person.work }}</li>
+                         <li>Прибытие в ИКРЦ: {{ current_person.coming_date }}</li>
+                         <li>Карьера: {{ current_person.career  }}</li>
                      </ul>
                   </p>
                   <p>{{ current_person.info }}</p>

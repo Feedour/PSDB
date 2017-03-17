@@ -22,13 +22,20 @@ class Planet(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=100)
-    info = models.TextField()
+    is_st_nab = models.BooleanField()
+    birth_date = models.DateTimeField(blank=True, null=True)
+    planet = models.ForeignKey(Planet, null=True, on_delete=models.SET_NULL, blank=True)
+    father = models.CharField(max_length=100)
+    mother = models.CharField(max_length=100)
+    education = models.TextField()
+    work = models.TextField()
+    coming_date = models.DateTimeField(blank=True, null=True)
+    career = models.TextField()
     image = models.ImageField(upload_to='static/images/Person/', blank=True)
     created_date = models.DateTimeField(
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
-    planet = models.ForeignKey(Planet, null=True, on_delete=models.SET_NULL, blank=True)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -77,4 +84,5 @@ class Mission(models.Model):
 
     def __str__(self):
         return self.name
+
 

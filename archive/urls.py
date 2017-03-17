@@ -13,4 +13,7 @@ urlpatterns = [
     url(r'^bg/(?P<pk>[0-9]+)/$', views.bg, name='bg'),
     url(r'^planet/(?P<pk>[0-9]+)/$', views.planet, name='planet'),
     url(r'^mission/(?P<pk>[0-9]+)/$', views.mission, name='mission'),
+    url(r'^person/(?P<pk>[0-9]+)/(?P<state>[0-9]+)/$', views.person_state, name='person_state'),
+    url(r'^bg/(?P<pk>[0-9]+)/(?P<state>[0-9]+)/$', views.bg_state, name='bg_state'),
+    url(r'^mission/(?P<pk>[0-9]+)/(?P<state>[0-9]+)/$', views.mission_state, name='mission_state'),
     ]
