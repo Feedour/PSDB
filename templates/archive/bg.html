@@ -24,16 +24,17 @@
             {% endif %}
         </div>
         <div class="col-xs-12 col-lg-8 main">
-            <p>Краткая информация:
-                     <ul>
-                        <li>Старший наблюдатель: {{ current_bg.last_st_nab }}</li>
-                        <li>Дата основания: </li>
-                     </ul>
-            </p>
-            <p>{{ current_bg.info }} </p>
-            {%  if  current_bg.last_st_nab_id %}
-                <a href="{% url 'archive:person' current_bg.last_st_nab_id %}">{{ current_bg.last_st_nab }} </a>
-            {%  endif %}
+             <p>{{ current_bg.info }} </p>
+             <p>
+             Старший наблюдатель: {%  if  current_bg.last_st_nab_id %}
+             <a href="{% url 'archive:person' current_bg.last_st_nab_id %}">{{ current_bg.last_st_nab }} </a>
+                                  {% else %}
+             {{ current_bg.last_st_nab }}
+                                  {%  endif %}
+             </p>
+
+
+
         </div>
     </div>
 {% endblock %}

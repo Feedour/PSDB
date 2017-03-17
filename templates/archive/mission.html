@@ -30,11 +30,11 @@
                   <p>{{ current_mission.info }} </p>
                   <p>Результат : {{ current_mission.result}} </p>
                   {%  if  current_mission.planet_id %}
-                      <a href="{% url 'archive:planet' current_mission.planet_id %}">{{ current_mission.planet }} </a>
+                      <p>Планета: <a href="{% url 'archive:planet' current_mission.planet_id %}">{{ current_mission.planet }} </a></p>
                   {%  endif %}
                   <p></p>
                   {%  if  current_mission.bg_id %}
-                      <a href="{% url 'archive:bg' current_mission.bg_id %}">{{ current_mission.bg }} </a>
+                     <p>Боевая группа: <a href="{% url 'archive:bg' current_mission.bg_id %}">{{ current_mission.bg }} </a></p>
                   {%  endif %}
 
                </div>

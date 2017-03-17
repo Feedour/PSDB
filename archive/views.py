@@ -9,7 +9,23 @@ from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, re
 
 
 def index(request):
-    return render(request, 'archive/main.html', {})
+    return HttpResponseRedirect(reverse('archive:bg', args=(1,)))
+
+
+def index_person(request):
+    return HttpResponseRedirect(reverse('archive:person', args=(1,)))
+
+
+def index_bg(request):
+    return HttpResponseRedirect(reverse('archive:bg', args=(1,)))
+
+
+def index_planet(request):
+    return HttpResponseRedirect(reverse('archive:planet', args=(1,)))
+
+
+def index_mission(request):
+    return HttpResponseRedirect(reverse('archive:mission', args=(1,)))
 
 
 def person(request,pk):
