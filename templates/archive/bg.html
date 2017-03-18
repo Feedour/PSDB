@@ -7,8 +7,8 @@
      <ul class="nav nav-sidebar">
         <li><a href="{% url 'archive:bg_state' 0 1%}">Активные боевые группы</a></li>
         <li><a href="{% url 'archive:bg_state' 0 0%}">Замороженные боевые группы</a></li>
-    </ul>
-    <hr>
+     </ul>
+     <hr>
          {% for bg in BG_list %}
              <li><a href="{% url 'archive:bg' bg.pk %}">{{ bg }} </a></li>
          {% endfor %}
