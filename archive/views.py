@@ -28,16 +28,27 @@ def index_mission(request):
     return HttpResponseRedirect(reverse('archive:mission', args=(1,)))
 
 
-def bg_state(request):
-    return HttpResponseRedirect(reverse('archive:planet', args=(1,)))
+def bg_state(request,pk,state):
+    bg_list = BG.objects.all()
+    if state == '1':
+        bg_list = bg_list.filter(is_active=True)
+    else:
+        bg_list = bg_list.filter(is_active=False)
+    if bg_list.filter(pk=pk):
+        current_bg = BG.objects.get(pk=pk)
+    else:
+        current_bg = bg_list.first()
+    context = {'BG_list': bg_list,
+               'current_bg': current_bg}
+    return render(request, 'archive/bg.html', context)
 
 
 def person_state(request,pk,state):
     person_list=Person.objects.all()
     if state == '1':
-        person_list = person_list.filter(is_st_nab=True);
+        person_list = person_list.filter(is_st_nab=True)
     else:
-        person_list = person_list.filter(is_st_nab=False);
+        person_list = person_list.filter(is_st_nab=False)
     if person_list.filter(pk=pk):
         current_person = Person.objects.get(pk=pk)
     else:
