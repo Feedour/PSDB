@@ -28,60 +28,38 @@ def index_mission(request):
     return HttpResponseRedirect(reverse('archive:mission', args=(1,)))
 
 
-def bg_state(request,pk,state):
+def bg(request,pk,state):
     bg_list = BG.objects.all()
     if state == '1':
         bg_list = bg_list.filter(is_active=True)
-    else:
+    elif state == '2':
         bg_list = bg_list.filter(is_active=False)
     if bg_list.filter(pk=pk):
         current_bg = BG.objects.get(pk=pk)
     else:
         current_bg = bg_list.first()
     context = {'BG_list': bg_list,
-               'current_bg': current_bg}
+               'current_bg': current_bg,
+               'state': state}
     return render(request, 'archive/bg.html', context)
 
 
-def person_state(request,pk,state):
-    person_list=Person.objects.all()
+def person(request,pk,state):
+    person_list = Person.objects.all()
     if state == '1':
         person_list = person_list.filter(is_st_nab=True)
-    else:
+    elif state == '2':
         person_list = person_list.filter(is_st_nab=False)
     if person_list.filter(pk=pk):
         current_person = Person.objects.get(pk=pk)
     else:
         current_person = person_list.first()
     context = {'Person_list': person_list,
-               'current_person': current_person}
+               'current_person': current_person,
+               'state': state}
     return render(request, 'archive/people.html', context)
 
 
-def mission_state(request):
-    return HttpResponseRedirect(reverse('archive:planet', args=(1,)))
-
-
-def person(request,pk):
-    person_list=Person.objects.all();
-    if person_list.filter(pk=pk):
-        current_person = Person.objects.get(pk=pk)
-    else:
-        current_person = person_list.first()
-    context = {'Person_list':person_list,
-               'current_person':current_person}
-    return render(request, 'archive/people.html', context)
-
-
-def bg(request, pk):
-    bg_list = BG.objects.all();
-    if bg_list.filter(pk=pk):
-        current_bg = BG.objects.get(pk=pk)
-    else:
-        current_bg = bg_list.first()
-    context = {'BG_list': bg_list,
-               'current_bg': current_bg}
-    return render(request, 'archive/bg.html', context)
 
 
 def planet(request,pk):
@@ -95,12 +73,15 @@ def planet(request,pk):
     return render(request, 'archive/planet.html', context)
 
 
-def mission(request,pk):
-    mission_list=Mission.objects.all();
+def mission(request,pk,state):
+    mission_list = Mission.objects.all()
+    if state != '0':
+        mission_list = mission_list.filter(watch = int(state))
     if mission_list.filter(pk=pk):
-        current_mission=Mission.objects.get(pk=pk)
+        current_mission = Mission.objects.get(pk=pk)
     else:
-        current_mission=mission_list.first()
+        current_mission = mission_list.first()
     context = {'Mission_list': mission_list,
-               'current_mission': current_mission}
+               'current_mission': current_mission,
+               'state': state}
     return render(request, 'archive/mission.html', context)

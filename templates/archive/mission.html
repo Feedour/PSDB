@@ -4,11 +4,24 @@
 
 {% block sidemenu %}
     <ul class="nav nav-sidebar">
+    <ul class="nav nav-sidebar">
+
+    </ul><li><a href="{% url 'archive:mission' 0 0%}">Все высадки</a></li>
+        <hr>
+        <li><a href="{% url 'archive:mission' 0 1%}">1 вахта</a></li>
+        <li><a href="{% url 'archive:mission' 0 2%}">2 вахта</a></li>
+        <li><a href="{% url 'archive:mission' 0 3%}">3 вахта</a></li>
+        <li><a href="{% url 'archive:mission' 0 4%}">4 вахта</a></li>
+        <li><a href="{% url 'archive:mission' 0 5%}">5 вахта</a></li>
+        <li><a href="{% url 'archive:mission' 0 6%}">6 вахта</a></li>
+        <li><a href="{% url 'archive:mission' 0 7%}">7 вахта</a></li>
+        <li><a href="{% url 'archive:mission' 0 8%}">8 вахта</a></li>
+     <hr>
         {% for mission in Mission_list %}
-            <li><a href="{% url 'archive:mission' mission.pk %}">{{ mission }} высадка</a></li>
+            <li><a href="{% url 'archive:mission' mission.pk state%}">{{ mission }} высадка</a></li>
         {% endfor %}
     </ul>
-    <hr>
+
     {% if missiom_list %}
         <ul class="nav nav-sidebar">
             {% for mission in Mission_list %}
@@ -34,7 +47,7 @@
                   {%  endif %}
                   <p></p>
                   {%  if  current_mission.bg_id %}
-                     <p>Боевая группа: <a href="{% url 'archive:bg' current_mission.bg_id %}">{{ current_mission.bg }} </a></p>
+                     <p>Боевая группа: <a href="{% url 'archive:bg' current_mission.bg_id 0 %}">{{ current_mission.bg }} </a></p>
                   {%  endif %}
 
                </div>

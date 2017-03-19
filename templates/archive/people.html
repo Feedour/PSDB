@@ -4,13 +4,15 @@
 
 {% block sidemenu %}
     <ul class="nav nav-sidebar">
-        <li><a href="{% url 'archive:person_state' 0 1%}">Старшие наблюдатели</a></li>
-        <li><a href="{% url 'archive:person_state' 0 0%}">Сотрудники базы</a></li>
+        <li><a href="{% url 'archive:person' 0 0%}">Все сотрудники базы</a></li>
+        <hr>
+        <li><a href="{% url 'archive:person' 0 1%}">Старшие наблюдатели</a></li>
+        <li><a href="{% url 'archive:person' 0 2%}">Отдел 10К</a></li>
     </ul>
     <hr>
     <ul class="nav nav-sidebar">
         {% for person in Person_list %}
-            <li><a href="{% url 'archive:person' person.pk %}">{{ person }} </a></li>
+            <li><a href="{% url 'archive:person' person.pk state%}">{{ person }} </a></li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -5,12 +5,14 @@
 {% block sidemenu %}
      <ul class="nav nav-sidebar">
      <ul class="nav nav-sidebar">
-        <li><a href="{% url 'archive:bg_state' 0 1%}">Активные боевые группы</a></li>
-        <li><a href="{% url 'archive:bg_state' 0 0%}">Замороженные боевые группы</a></li>
-     </ul>
+
+     </ul><li><a href="{% url 'archive:bg' 0 0%}">Все боевые группы</a></li>
+        <hr>
+        <li><a href="{% url 'archive:bg' 0 1%}">Активные боевые группы</a></li>
+        <li><a href="{% url 'archive:bg' 0 2%}">Замороженные боевые группы</a></li>
      <hr>
          {% for bg in BG_list %}
-             <li><a href="{% url 'archive:bg' bg.pk %}">{{ bg }} </a></li>
+             <li><a href="{% url 'archive:bg' bg.pk state %}">{{ bg }} </a></li>
          {% endfor %}
      </ul>
 {% endblock %}
@@ -32,7 +34,7 @@
              <p>{{ current_bg.info }} </p>
              <p>
              Старший наблюдатель: {%  if  current_bg.last_st_nab_id %}
-             <a href="{% url 'archive:person' current_bg.last_st_nab_id %}">{{ current_bg.last_st_nab }} </a>
+             <a href="{% url 'archive:person' current_bg.last_st_nab_id 0 %}">{{ current_bg.last_st_nab }} </a>
                                   {% else %}
              {{ current_bg.last_st_nab }}
                                   {%  endif %}

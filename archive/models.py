@@ -68,6 +68,7 @@ class BG(models.Model):
 
 class Mission(models.Model):
     name = models.CharField(max_length=50)
+    watch = models.IntegerField()
     target = models.TextField()
     info = models.TextField()
     result = models.CharField(max_length=50)
