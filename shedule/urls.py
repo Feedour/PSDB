@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^(?P<day>[0-9]+)/(?P<pk>[0-9]+)/$', views.lesson, name='lesson'),
     url(r'^(?P<day>[0-9]+)/(?P<pk>[0-9]+)/enroll/$', views.enroll, name='enroll'),
     url(r'^account/$', views.account, name='account'),
+    url(r'^account/edit/$', views.edit, name='edit'),
 ]

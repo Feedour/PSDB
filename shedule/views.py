@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, logout, login
 
 
 def index(request):
-    return HttpResponseRedirect(reverse('shedule:shedule', args=(1,)))
+    return HttpResponseRedirect(reverse('shedule:lesson', args=(1,0)))
 
 
 def shedule(request, day):
@@ -74,3 +74,18 @@ def account(request):
     context = {'watcher':request.user.watcher,
                'user' : request.user,}
     return render(request, 'shedule/account.html', context)
+def edit(request):
+    if (request.method == 'POST'):
+        name = request.POST.get('name')
+        bg = request.POST.get('bg')
+        info = request.POST.get('info')
+        watcher = request.user.watcher
+        watcher.name = name
+        watcher.bg = bg
+        watcher.info = info
+        watcher.save()
+        return HttpResponseRedirect(reverse('shedule:account'))
+    else:
+        context = {'watcher': request.user.watcher,
+                   'user': request.user, }
+    return render(request, 'shedule/edit.html', context)
