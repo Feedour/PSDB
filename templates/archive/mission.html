@@ -6,29 +6,11 @@
     <ul class="nav nav-sidebar">
     <ul class="nav nav-sidebar">
 
-    </ul><li><a href="{% url 'archive:mission' 0 0%}">Все высадки</a></li>
-        <hr>
-        <li><a href="{% url 'archive:mission' 0 1%}">1 вахта</a></li>
-        <li><a href="{% url 'archive:mission' 0 2%}">2 вахта</a></li>
-        <li><a href="{% url 'archive:mission' 0 3%}">3 вахта</a></li>
-        <li><a href="{% url 'archive:mission' 0 4%}">4 вахта</a></li>
-        <li><a href="{% url 'archive:mission' 0 5%}">5 вахта</a></li>
-        <li><a href="{% url 'archive:mission' 0 6%}">6 вахта</a></li>
-        <li><a href="{% url 'archive:mission' 0 7%}">7 вахта</a></li>
-        <li><a href="{% url 'archive:mission' 0 8%}">8 вахта</a></li>
-     <hr>
-        {% for mission in Mission_list %}
-            <li><a href="{% url 'archive:mission' mission.pk state%}">{{ mission }} высадка</a></li>
-        {% endfor %}
-    </ul>
+        <li><a href="{% url 'archive:mission' 0 1%}">По вахтам</a></li>
+        <li><a href="{% url 'archive:mission' 0 101%}">По боевым группам</a></li>
 
-    {% if missiom_list %}
-        <ul class="nav nav-sidebar">
-            {% for mission in Mission_list %}
-                <li><a href="{% url 'archive:mission' mission.pk %}">{{ mission.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+
+
 {% endblock %}
 
 {% block content %}
@@ -39,17 +21,9 @@
             <div class="row">
 
                <div class="col-xs-6 col-lg-9 main">
-                  <p>Цель     : {{ current_mission.target}} </p>
-                  <p>{{ current_mission.info }} </p>
-                  <p>Результат : {{ current_mission.result}} </p>
-                  {%  if  current_mission.planet_id %}
-                      <p>Планета: <a href="{% url 'archive:planet' current_mission.planet_id %}">{{ current_mission.planet }} </a></p>
-                  {%  endif %}
-                  <p></p>
-                  {%  if  current_mission.bg_id %}
-                     <p>Боевая группа: <a href="{% url 'archive:bg' current_mission.bg_id 0 %}">{{ current_mission.bg }} </a></p>
-                  {%  endif %}
-
+                  <p>Добро пожаловать
+                     Выберите один из вариантов
+                  </p>
                </div>
             </div>
          </div>

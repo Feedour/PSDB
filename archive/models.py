@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from PIL import Image
 
+
 class Planet(models.Model):
     name = models.CharField(max_length=100)
     info = models.TextField()

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Высадки{% endblock %}
+
+{% block sidemenu %}
+    <ul class="nav nav-sidebar">
+    <ul class="nav nav-sidebar">
+
+        <li><a href="{% url 'archive:mission' 0 101%}">Тау</a></li>
+        <li><a href="{% url 'archive:mission' 0 102%}">Энигма</a></li>
+        <li><a href="{% url 'archive:mission' 0 103%}">Гризли</a></li>
+        <li><a href="{% url 'archive:mission' 0 104%}">Клио</a></li>
+        <li><a href="{% url 'archive:mission' 0 105%}">Феникс</a></li>
+        <li><a href="{% url 'archive:mission' 0 106%}">Джаз</a></li>
+     <hr>
+        {% for mission in Mission_list %}
+            <li><a href="{% url 'archive:mission' mission.pk state%}">{{ mission }} </a></li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
+
+{% block content %}
+    <div class="panel-heading">
+            <h1 class="panel-title">Высадки</h1>
+         </div>
+         <div class="panel-body">
+            <div class="row">
+
+               <div class="col-xs-6 col-lg-9 main">
+                  <p>Цель     : {{ current_mission.target}} </p>
+                  <p>{{ current_mission.info }} </p>
+                  <p>Результат : {{ current_mission.result}} </p>
+                  {%  if  current_mission.planet_id %}
+                      <p>Планета: <a href="{% url 'archive:planet' current_mission.planet_id %}">{{ current_mission.planet }} </a></p>
+                  {%  endif %}
+                  <p></p>
+                  {%  if  current_mission.bg_id %}
+                     <p>Боевая группа: <a href="{% url 'archive:bg' current_mission.bg_id 0 %}">{{ current_mission.bg }} </a></p>
+                  {%  endif %}
+
+               </div>
+            </div>
+         </div>
+{% endblock %}

@@ -74,9 +74,23 @@ def planet(request,pk):
 
 
 def mission(request,pk,state):
+    if state == '0':
+        return render(request, 'archive/mission.html')
     mission_list = Mission.objects.all()
-    if state != '0':
-        mission_list = mission_list.filter(watch = int(state))
+    if int(state) < 100:
+        mission_list = mission_list.filter(watch=int(state))
+    elif int(state) == 101:
+        mission_list = mission_list.filter(bg__name="Тау")
+    elif int(state) == 102:
+        mission_list = mission_list.filter(bg__name="Энигма")
+    elif int(state) == 103:
+        mission_list = mission_list.filter(bg__name="Гризли")
+    elif int(state) == 104:
+        mission_list = mission_list.filter(bg__name="Клио")
+    elif int(state) == 105:
+        mission_list = mission_list.filter(bg__name="Феникс")
+    elif int(state) == 106:
+        mission_list = mission_list.filter(bg__name="Джаз")
     if mission_list.filter(pk=pk):
         current_mission = Mission.objects.get(pk=pk)
     else:
@@ -84,4 +98,7 @@ def mission(request,pk,state):
     context = {'Mission_list': mission_list,
                'current_mission': current_mission,
                'state': state}
-    return render(request, 'archive/mission.html', context)
+    if int(state) >= 100:
+        return render(request, 'archive/mission_bg.html', context)
+    else:
+        return render(request, 'archive/mission_watch.html', context)
